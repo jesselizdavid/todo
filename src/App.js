@@ -3,13 +3,56 @@ import React, { Component } from 'react';
 // local imports
 import './App.css';
 import TodoList from './Todo';
+import TodoItems from './TodoItems'
 
 class App extends Component {
+
+  inputElement = React.createRef();
+
+  constructor(props) {
+    super(props) 
+    this.state = {
+      items: [], 
+      currentItem: {text: '', key: ''}
+    }
+  }
+
+  handleInput = e => {
+    const itemText = e.target.value
+    const currentItem = {text: itemText, key: Date.now()}
+    this.setState(currentItem)
+  }
+
+  addItem = e => {
+    e.preventDefault();
+    const newItem = this.state.currentItem
+
+    if (newItem.text !== '') {
+      console.log(newItem.text)
+      const items = [...this.state.items, newItem]
+      this.setState({
+        items,
+        currentItem: {text: '', key: ''}
+      })
+    }
+  }
+
+  deleteItem = key => {
+    const filteredItems = this.state.items.filter(item => {
+        return item.key !== key
+      }
+
+      this.setState({
+        items: filteredItems,
+      })
+    )
+  }
+
   render() {
     return (
       <div className="App">
         <h1>hello matey</h1>
-        <TodoList />
+        <TodoList addItem={this.addItem} />
       </div>
     )
   }
