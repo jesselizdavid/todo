@@ -1,13 +1,6 @@
 import React, { Component } from "react";
 
 class TodoList extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      input: "test",
-    };
-  }
 
   componentDidUpdate() {
     this.props.inputElement.current.focus();
@@ -21,9 +14,8 @@ class TodoList extends Component {
             <input
               placeholder="Task"
               ref={this.props.inputElement}
-              type="text"
-              onChange={this.props.handleInput}
               value={this.props.currentItem.text}
+              onChange={this.props.handleInput}
             />
             <button type="submit">Add Task </button>
           </form>
