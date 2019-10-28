@@ -20,7 +20,7 @@ class App extends Component {
   handleInput = e => {
     const itemText = e.target.value
     const currentItem = {text: itemText, key: Date.now()}
-    this.setState(currentItem)
+    this.setState({currentItem})
   }
 
   addItem = e => {
@@ -40,19 +40,23 @@ class App extends Component {
   deleteItem = key => {
     const filteredItems = this.state.items.filter(item => {
         return item.key !== key
-      }
+      })
 
       this.setState({
         items: filteredItems,
       })
-    )
   }
 
   render() {
     return (
       <div className="App">
-        <h1>hello matey</h1>
-        <TodoList addItem={this.addItem} />
+        <TodoList 
+          addItem={this.addItem} 
+          inputElement={this.inputElement}
+          handleInput={this.handleInput}
+          currentItem={this.state.currentItem}
+        />
+        <TodoItems entries={this.state.items} deleteItem={this.deleteItem} />
       </div>
     )
   }
